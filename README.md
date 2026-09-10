@@ -27,12 +27,62 @@ Everything else is stock QGroundControl.
 
 ## Install
 
-| Platform | File | First launch |
-|---|---|---|
-| macOS 13+ (Apple Silicon + Intel) | `QGroundControl-MALP-<version>-macOS-universal.dmg` | Unsigned: approve it under System Settings → Privacy & Security |
-| Linux x86_64 / Steam Deck | `QGroundControl-MALP-<version>-x86_64.AppImage` | `chmod +x` and run; on the Deck from Desktop Mode |
+Download the file for your platform from the
+[latest release](https://github.com/aerorozvedka/malp-qgc-releases/releases/latest).
+Each release lists SHA-256 checksums in its notes. The builds are not signed yet,
+so every platform asks for one extra confirmation on first launch.
 
-Each release lists SHA-256 checksums in its notes.
+The application can sit next to a stock QGroundControl; its settings are kept separately.
+
+### macOS
+
+macOS 13 or newer, Apple Silicon or Intel — file `QGroundControl-MALP-<version>-macOS-universal.dmg`.
+
+1. Open the DMG and drag **QGroundControl-MALP-&lt;version&gt;** onto **Applications**.
+2. Start it from Applications. macOS refuses the first launch because the build is unsigned.
+3. Open **System Settings → Privacy & Security**, scroll to the message about
+   QGroundControl-MALP and click **Open Anyway**, then confirm.
+
+From then on it starts normally.
+
+### Windows
+
+Windows 10 or 11, x64 — the installer ending in `-Windows-AMD64.exe`.
+
+1. Run the installer.
+2. If SmartScreen shows *Windows protected your PC*, click **More info → Run anyway**.
+3. Finish the installer. It installs as **QGC MALP**; the last page offers to start the
+   application and to create a desktop shortcut.
+
+### Linux and Steam Deck
+
+x86_64 — file `QGroundControl-MALP-<version>-x86_64.AppImage`. Nothing to install:
+the AppImage is a single file that carries its own libraries, video plugins included.
+
+On the Steam Deck switch to **Desktop Mode** first (STEAM button → Power → Switch to Desktop),
+then download the file and run in a terminal (Konsole):
+
+```bash
+cd ~/Downloads
+chmod +x QGroundControl-MALP-*-x86_64.AppImage
+./QGroundControl-MALP-*-x86_64.AppImage
+```
+
+On the Steam Deck:
+
+- **Start it directly from Desktop Mode**, as above. The application then sees the Deck's
+  own controller and the sticks are mapped in one place, inside QGroundControl.
+- If you add it to Steam as a non-Steam game, run it **only from Game Mode** with the
+  controller layout set to **Gamepad**. Do not switch between the two ways: each reports
+  the controller under a different name, so the joystick calibration would be lost.
+- **USB telemetry radio:** if QGroundControl cannot open `/dev/ttyUSB*` or `/dev/ttyACM*`,
+  run `sudo usermod -aG uucp deck` and log out and back in. A SteamOS update can undo it;
+  check with `id -nG`.
+
+### Video
+
+No address to type in. A MALP drone announces its WebRTC video stream over MAVLink and
+QGroundControl-MALP picks it up as soon as the drone connects.
 
 ## Versions
 
